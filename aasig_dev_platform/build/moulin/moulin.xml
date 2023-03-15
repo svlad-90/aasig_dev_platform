@@ -1,0 +1,382 @@
+<paf_config>
+
+    <!--=================-->
+    <!--COMMON PARAMETERS-->
+    <!--=================-->
+
+    <!--======================-->
+    <!--ROOT LEVEL DIRECTORIES-->
+    <!--======================-->
+
+    <param name="MOULIN_ROOT" value="/mnt"/>
+    <param name="MOULIN_DEPLOYMENT_DIR" value="moulin"/>
+
+    <!--=======================-->
+    <!--PROJECT SUB-DIRECTORIES-->
+    <!--=======================-->
+
+    <param name="MOULIN_DOWNLOAD_DIR" value="download"/>
+    <param name="MOULIN_SOURCE_DIR" value="source"/>
+    <param name="MOULIN_BUILD_DIR" value="build"/>
+    <param name="MOULIN_DEPLOY_DIR" value="deploy"/>
+
+    <!--=================-->
+    <!--MOULIN PARAMETERS-->
+    <!--=================-->
+
+    <!-- Common -->
+
+    <param name="MOULIN_BUILD_CONFIGURATION_FILE_EXTENSION" value=".yaml"/>
+    <param name="MOULIN_MACHINE" value="h3ulcb-4x2g-kf"/>
+
+    <!-- QEMU virtio DomD + DomU -->
+
+    <!-- <param name="MOULIN_BUILD_CONFIGURATION_FILE_NAME" value="prod-devel-rcar"/> -->
+    <!-- <param name="MOULIN_ADDITIONAL_PARAMETERS" value="&#45;&#45;ENABLE_DOMU yes &#45;&#45;ENABLE_MM yes"/> -->
+
+    <!-- Renesas BSP 5.1.0 -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_URL" value="git@gipthub.com:svlad-90/meta-xt-prod-devel-rcar.git"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_BRANCH" value="master"/> -->
+    <!-- Renesas BSP 5.9.0 -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_URL" value="git@github.com:otyshchenko1/meta-xt-prod-devel-rcar.git"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_BRANCH" value="my_devel"/> -->
+    <!-- Renesas BSP 5.9.0 + kirkstone Yocto -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_URL" value="git@github.com:otyshchenko1/meta-xt-prod-devel-rcar.git"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_BRANCH" value="my_devel_kirkstone"/> -->
+    <!-- Renesas BSP 5.9.0 + kirkstone Yocto + QEMU 7.2 -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_URL" value="git@github.com:otyshchenko1/meta-xt-prod-devel-rcar.git"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_BRANCH" value="my_devel_virtio"/> -->
+
+    <!-- Cockpit rcar demo -->
+
+    <!-- <param name="MOULIN_BUILD_CONFIGURATION_FILE_NAME" value="prod-cockpit-rcar"/> -->
+    <!-- <param name="MOULIN_ADDITIONAL_PARAMETERS" value="&#45;&#45;ENABLE_ANDROID yes"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_URL" value="git@github.com:xen-troops/meta-xt-prod-cockpit-rcar.git"/> -->
+    <!-- <param name="MOULIN_PRODUCT_GIT_BRANCH" value="REL-CES-2023"/> -->
+
+    <!-- QEMU virtio DomD + DomA -->
+
+    <param name="MOULIN_BUILD_CONFIGURATION_FILE_NAME" value="prod-devel-rcar"/>
+    <param name="MOULIN_ADDITIONAL_PARAMETERS" value="&#45;&#45;ENABLE_ANDROID yes &#45;&#45;ENABLE_MM yes"/>
+
+    <!-- Renesas BSP 5.1.0 -->
+
+    <param name="MOULIN_PRODUCT_GIT_URL" value="git@github.com:dterletskiy/meta-xt-prod-devel-rcar.git"/>
+    <param name="MOULIN_PRODUCT_GIT_BRANCH" value="xenvm-trout-dev"/>
+
+    <!--=========================-->
+    <!--INSTALL DOCKER PARAMETERS-->
+    <!--=========================-->
+
+    <param name="DOCKER_GPG_KEY_URL" value="https://download.docker.com/linux/ubuntu/gpg"/>
+
+    <!--=================-->
+    <!--DOCKER PARAMETERS-->
+    <!--=================-->
+
+    <param name="DOCKER_SSH_MOUNT_FOLDER" value="&#36;HOME/.ssh"/>
+    <param name="DOCKER_GIT_CONFIG_MOUNT_FOLDER" value="&#36;HOME/.gitconfig"/>
+
+    <!--====================================-->
+    <!--BUILD MOULIN DOCKER IMAGE PARAMETERS-->
+    <!--====================================-->
+
+    <param name="MOULIN_DOCKER_IMAGE_NAME" value="moulin_build_env"/>
+    <param name="MOULIN_DOCKER_CONTAINER_NAME" value="moulin_build_env"/>
+
+    <!--=========================-->
+    <!--XQVD OVERRIDEN PARAMETERS-->
+    <!--=========================-->
+
+    <param name="RPI_DOMD_CONSOLE_NAME" value="h3ulcb-domd"/>
+    <param name="RPI_DOMU_CONSOLE_NAME" value="h3ulcb"/>
+
+    <!--====================================-->
+    <!--END OF THE COMMON PARAMETERS SECTION-->
+    <!--====================================-->
+
+    <!--==================-->
+    <!--MOULIN BUILD STEPS-->
+    <!--==================-->
+
+    <phase name="moulin_docker_install">
+        <task name="aasig_dev_platform.docker.docker_install"/>
+    </phase>
+
+    <phase name="moulin_docker_build_image">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_container"/>
+        <task name="aasig_dev_platform.docker.docker_build_image"/>
+        <task name="aasig_dev_platform.docker.docker_create_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+    </phase>
+
+    <phase name="moulin_clone_build_config">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_clone_build_config"/>
+    </phase>
+
+    <phase name="moulin_generate_ninja">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_generate_ninja"/>
+    </phase>
+
+    <phase name="moulin_build_project">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_build_project"/>
+    </phase>
+
+    <phase name="moulin_create_full_image">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_create_full_image"/>
+    </phase>
+
+    <!--==========================================-->
+    <!--DEPLOYMENT OF THE FULL IMAGE ON THE TARGET-->
+    <!--==========================================-->
+
+    <phase name="moulin_deploy_full_image_on_the_target">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_copy_to_target_parameters_emmc"/>
+    </phase>
+
+    <scenario name="moulin_deploy_full_image_on_the_target">
+        <phase name="moulin_deploy_full_image_on_the_target"/>
+    </scenario>
+
+    <!--=================================================-->
+    <!--DEPLOYMENT OF THE NFS AND TFTP CONTENT ON THE RPI-->
+    <!--=================================================-->
+
+    <phase name="moulin_nfs_and_tftp_deploy">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_deploy_domd_nfs_content"/>
+        <task name="aasig_dev_platform.moulin.moulin_deploy_dom0_tftp_content"/>
+        <task name="aasig_dev_platform.moulin.moulin_deploy_xen_tftp_content"/>
+    </phase>
+
+    <scenario name="moulin_nfs_and_tftp_deploy">
+        <phase name="moulin_nfs_and_tftp_deploy"/>
+    </scenario>
+
+    <phase name="moulin_deploy_nfs_domd_content_on_the_target">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_copy_to_target_parameters_domd_nfs"/>
+    </phase>
+
+    <phase name="moulin_deploy_dom0_tftp_content_on_the_target">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_copy_to_target_parameters_dom0_tftp"/>
+    </phase>
+
+    <phase name="moulin_deploy_xen_tftp_content_on_the_target">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_copy_to_target_parameters_xen_tftp"/>
+    </phase>
+
+    <scenario name="moulin_nfs_and_tftp_upload_sw_to_the_rpi">
+        <phase name="moulin_deploy_nfs_domd_content_on_the_target"/>
+        <phase name="xqvd_copy_file_to_the_rpi"/>
+        <phase name="moulin_deploy_dom0_tftp_content_on_the_target"/>
+        <phase name="xqvd_copy_file_to_the_rpi"/>
+        <phase name="moulin_deploy_xen_tftp_content_on_the_target"/>
+        <phase name="xqvd_copy_file_to_the_rpi"/>
+        <phase name="xqvd_reboot_board_from_tftp"/>
+    </scenario>
+
+    <!--====================-->
+    <!--YOCTO GRAPH ANALYSIS-->
+    <!--====================-->
+
+    <!--==========-->
+    <!--PARAMETERS-->
+    <!--==========-->
+
+    <param name="MOULIN_DOT_GRAPH_YOCTO_COMPONENT" value="dom0"/>
+    <param name="MOULIN_DOT_GRAPH_BITBAKE_PARAMETERS" value=""/>
+    <param name="MOULIN_DOT_GRAPH_BITBAKE_TARGET" value="core-image-thin-initramfs"/>
+
+    <param name="MOULIN_FILTERED_DOT_GRAPH_BITBAKE_TARGET" value="kernel"/>
+
+    <param name="MOULIN_ANALYZE_YOCTO_DEPENDENCY_COMPONENT" value="domd"/>
+    <param name="MOULIN_ANALYZE_YOCTO_DEPENDENCY_KEY" value="gtk\+3"/>
+
+    <param name="MOULIN_WRITE_YOCTO_ENV_TO_FILE_COMPONENT" value="dom0"/>
+    <param name="MOULIN_WRITE_YOCTO_ENV_TO_FILE_TARGET" value="core-image-thin-initramfs"/>
+
+    <param name="MOULIN_FIND_YOCTO_PACKAGE_BY_IMAGE_PATH_COMPONENT" value="dom0"/>
+    <param name="MOULIN_FIND_YOCTO_PACKAGE_BY_IMAGE_PATH" value="/boot/Image-5.10.41-yocto-tiny"/>
+
+    <param name="MOULIN_LOOKUP_YOCTO_RECIPE_BY_PACKAGE_COMPONENT" value="domd"/>
+    <param name="MOULIN_LOOKUP_YOCTO_RECIPE_BY_PACKAGE" value="python3"/>
+
+    <param name="MOULIN_LIST_YOCTO_PACKAGE_FILES_COMPONENT" value="domd"/>
+    <param name="MOULIN_LIST_YOCTO_PACKAGE_FILES" value="xen-tools"/>
+
+    <!--======================-->
+    <!-- SCENARIOS AND PHASES -->
+    <!--======================-->
+
+    <phase name="moulin_generate_yocto_dot_graph">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_generate_yocto_dot_graph"/>
+    </phase>
+
+    <phase name="moulin_generate_yocto_filtered_dot_graph">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_generate_yocto_filtered_dot_graph"/>
+    </phase>
+
+    <phase name="moulin_generate_yocto_filtered_dot_graph_prepare">
+        <task name="aasig_dev_platform.moulin.moulin_generate_yocto_dot_graph_inject_parameters_filtered"/>
+    </phase>
+
+    <scenario name="moulin_generate_yocto_filtered_dot_graph">
+        <phase name="moulin_generate_yocto_filtered_dot_graph_prepare"/>
+        <phase name="moulin_generate_yocto_dot_graph"/>
+        <phase name="moulin_generate_yocto_filtered_dot_graph"/>
+    </scenario>
+
+    <scenario name="moulin_generate_yocto_filtered_dot_graph_incremental">
+        <phase name="moulin_generate_yocto_filtered_dot_graph_prepare"/>
+        <phase name="moulin_generate_yocto_filtered_dot_graph"/>
+    </scenario>
+
+    <phase name="moulin_analyze_yocto_dependency_prepare">
+        <task name="aasig_dev_platform.moulin.moulin_generate_yocto_dot_graph_inject_parameters_analyze_dependency"/>
+    </phase>
+
+    <phase name="moulin_analyze_yocto_dependency">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_analyze_yocto_dependency"/>
+    </phase>
+
+    <scenario name="moulin_analyze_yocto_dependency">
+        <phase name="moulin_analyze_yocto_dependency_prepare"/>
+        <phase name="moulin_generate_yocto_dot_graph"/>
+        <phase name="moulin_analyze_yocto_dependency"/>
+    </scenario>
+
+    <scenario name="moulin_analyze_yocto_dependency_incremental">
+        <phase name="moulin_analyze_yocto_dependency_prepare"/>
+        <phase name="moulin_analyze_yocto_dependency"/>
+    </scenario>
+
+    <phase name="moulin_find_yocto_package_by_path">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_find_yocto_package_by_path"/>
+    </phase>
+
+    <scenario name="moulin_find_yocto_package_by_path">
+        <phase name="moulin_find_yocto_package_by_path"/>
+    </scenario>
+
+    <phase name="moulin_write_yocto_env_to_file">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_write_yocto_env_to_file"/>
+    </phase>
+
+    <scenario name="moulin_write_yocto_env_to_file">
+        <phase name="moulin_write_yocto_env_to_file"/>
+    </scenario>
+
+    <phase name="moulin_lookup_yocto_recipe_by_package">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_lookup_yocto_recipe_by_package"/>
+    </phase>
+
+    <scenario name="moulin_lookup_yocto_recipe_by_package">
+        <phase name="moulin_lookup_yocto_recipe_by_package"/>
+    </scenario>
+
+   <phase name="moulin_list_yocto_package_files">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_list_yocto_package_files"/>
+    </phase>
+
+    <scenario name="moulin_list_yocto_package_files">
+        <phase name="moulin_list_yocto_package_files"/>
+    </scenario>
+
+   <phase name="moulin_open_dot_dependency_graph_in_taskexp">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_open_dot_dependency_graph_in_taskexp"/>
+    </phase>
+
+    <scenario name="moulin_open_dot_dependency_graph_in_taskexp">
+        <phase name="moulin_open_dot_dependency_graph_in_taskexp"/>
+    </scenario>
+
+    <!--===========-->
+    <!--DEVELOPMENT-->
+    <!--===========-->
+
+    <!--==========-->
+    <!--PARAMETERS-->
+    <!--==========-->
+
+    <param name="MOULIN_DEV_REBUILD_TARGET_YOCTO_COMPONENT" value="dom0"/>
+    <param name="MOULIN_DEV_REBUILD_TARGET" value="u-boot-android"/>
+    <param name="MOULIN_DEV_REBUILD_IMAGE" value="core-image-thin-initramfs"/>
+    <!-- Semicolon separated list of the paths, which are relative to the moulin build folder-->
+    <param name="MOULIN_UPLOAD_FILES_SOURCE" value="yocto/build-dom0/tmp/deploy/images/generic-armv8-xt/uInitramfs"/>
+    <param name="MOULIN_UPLOAD_FILES_DESTINATION" value="/srv/tftp/dom0/"/>
+
+    <!--======================-->
+    <!-- SCENARIOS AND PHASES -->
+    <!--======================-->
+
+    <phase name="moulin_dev_rebuild_target">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_inject_docker_parameters"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.moulin.moulin_dev_rebuild_target"/>
+    </phase>
+
+    <phase name="moulin_dev_upload_files">
+        <task name="aasig_dev_platform.moulin.moulin_create_folders"/>
+        <task name="aasig_dev_platform.moulin.moulin_dev_upload_files_inject_copy_to_target_parameters"/>
+    </phase>
+
+    <scenario name="moulin_dev_upload_files">
+        <phase name="moulin_dev_upload_files"/>
+        <phase name="xqvd_copy_file_to_the_rpi"/>
+    </scenario>
+
+</paf_config>

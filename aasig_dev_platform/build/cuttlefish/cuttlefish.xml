@@ -1,0 +1,59 @@
+ <paf_config>
+    <!--=====================-->
+    <!--CUTTLEFISH PARAMETERS-->
+    <!--=====================-->
+
+    <param name="CUTTLEFISH_SUB_DIR" value="android-cuttlefish"/>
+    <param name="DOCKER_GPG_KEY_URL" value="https://download.docker.com/linux/ubuntu/gpg"/>
+    <param name="CUTTLEFISH_GIT_URL" value="https://github.com/google/android-cuttlefish"/>
+
+    <!--How to fill in ANDROID_PRODUCT_OUT & ANDROID_HOST_OUT parameters?-->
+    <!--Go to https://ci.android.com/.-->
+    <!--Select any specific aosp_cf_x86_64_phone artifacts build and download the following artifacts:-->
+    <!--- aosp_cf_x86_64_phone-img-xxxxxxx.zip-->
+    <!--- cvd-host_package.tar.gz -->
+    <!--Place cvd-host_package.tar.gz to any folder and specify it as the ANDROID_HOST_OUT, without unpacking the archive.-->
+    <!--Place aosp_cf_x86_64_phone-img-xxxxxxx.zip to any folder, unpack it, and specify as ANDROID_PRODUCT_OUT-->
+    <!--Unfortunately it is quite hard to automate this download. So, currently it is a TODO task!-->
+    <!--As an alternative, you can specify the folders of the manually built AOSP:-->
+    <!--ANDROID_PRODUCT_OUT=/android_source_root_folder/out/target/product/vsoc_x86-->
+    <!--ANDROID_HOST_OUT=/android_source_root_folder/soong/host/linux-x86-->
+    <!-- <param name="ANDROID_PRODUCT_OUT" value="/home/vladyslav_goncharuk/Projects/cf"/> -->
+    <!-- <param name="ANDROID_HOST_OUT" value="/home/vladyslav_goncharuk/Projects/cf"/> -->
+    <param name="ANDROID_PRODUCT_OUT" value="/mnt/android/build/android-13.0.0_r3/target/product/vsoc_x86_64"/>
+    <param name="ANDROID_HOST_OUT" value="/mnt/android/build/android-13.0.0_r3/host/linux-x86"/>
+    <param name="CUTTLEFISH_COMMIT_ID" value = "9efe2c8a3020d554cf826675af972b3aef1f90ea"/>
+
+    <param name="CUTTLEFISH_DOCKER_CONTAINER_NAME" value="test_aosp_cuttlefish"/>
+    <param name="CUTTLEFISH_PARAMS" value="--start_webrtc --cpus=4 --memory_mb=8192 --verbosity=VERBOSE --gpu_mode=guest_swiftshader"/>
+
+    <phase name="cuttlefish_docker_install">
+        <task name="aasig_dev_platform.docker.docker_install">
+        </task>
+    </phase>
+
+    <phase name="cuttlefish_deploy">
+        <task name="aasig_dev_platform.cuttlefish.cuttlefish_sync"/>
+        <task name="aasig_dev_platform.cuttlefish.cuttlefish_build"/>
+    </phase>
+
+    <phase name="cuttlefish_start_container">
+        <task name="aasig_dev_platform.cuttlefish.cuttlefish_start"/>
+    </phase>
+
+    <phase name="cuttlefish_stop_container">
+        <task name="aasig_dev_platform.cuttlefish.cuttlefish_stop"/>
+    </phase>
+    <scenario name="cuttlefish_deploy">
+        <phase name="system_prepare"/>
+        <phase name="cuttlefish_deploy"/>
+    </scenario>
+
+    <scenario name="cuttlefish_start_container">
+        <phase name="cuttlefish_start_container"/>
+    </scenario>
+
+    <scenario name="cuttlefish_stop_container">
+        <phase name="cuttlefish_stop_container"/>
+    </scenario>
+</paf_config>

@@ -1,0 +1,22 @@
+<paf_config>
+
+    <!--========================-->
+    <!--BUILD ANDROID PARAMETERS-->
+    <!--========================-->
+
+    <param name="ANDROID_REPO_URL" value="https://android.googlesource.com/platform/manifest"/>
+    <param name="ANDROID_REPO_BRANCH" value="android-12.1.0_r8"/>
+    <param name="ANDROID_LUNCH_CONFIG" value="device_vehicle_x86_64-userdebug"/>
+    <param name="ANDROID_LOCAL_MANIFESTS_GIT_URL" value="git@gitbud.epam.com:epmp-aos/aosp-vhal-local-manifest.git"/>
+    <param name="ANDROID_LOCAL_MANIFESTS_GIT_BRANCH" value="poc-some-ip"/>
+
+   <!-- This cli command will be executed after the "repo sync" -->
+   <param name="PATCH_AFTER_REPO_SYNC_HOOK" value="cd ${ROOT}/${ANDROID_DEPLOYMENT_DIR}/${SOURCE_DIR}/${ANDROID_REPO_BRANCH}/external/boost; ln -sf ../../device/epam/aosp-vhal/vehicle/boost-1_72_0.bp Android.bp;"/>
+   <!-- This cli command will be executed after the "repo sync", if IS_SDK_BUILD="True" -->
+   <param name="PATCH_AFTER_REPO_SYNC_HOOK_SDK" value="sed -i 's/-I \$$(TARGET_COMMON_OUT_ROOT) \\$$/-I $$(TARGET_COMMON_OUT_ROOT) -I \/ \\/' ${ROOT}/${ANDROID_DEPLOYMENT_DIR}/${SOURCE_DIR}/${ANDROID_REPO_BRANCH}/build/core/Makefile"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+</paf_config>

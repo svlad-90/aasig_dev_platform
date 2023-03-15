@@ -1,0 +1,56 @@
+<paf_config>
+    <!--========================-->
+    <!--QEMU-RELATED PARAMETERS -->
+    <!--========================-->
+
+    <!-- First image -->
+    <param name="FS_DECLARATION_SUPER" value="fs_from_image"/>
+    <param name="FS_SUPER_IMAGE_NAME" value="super"/>
+    <param name="FS_SUPER_TYPE" value="ext4"/>
+    <param name="FS_SUPER_MOUNT_PATH" value="super"/>
+
+    <!-- Second image -->
+    <param name="FS_DECLARATION_USERDATA" value="fs_from_image"/>
+    <param name="FS_USERDATA_IMAGE_NAME" value="userdata"/>
+    <param name="FS_USERDATA_TYPE" value="ext4"/>
+    <param name="FS_USERDATA_MOUNT_PATH" value="userdata"/>
+
+    <!-- Third image -->
+    <param name="FS_DECLARATION_CACHE" value="fs_empty"/>
+    <param name="FS_CACHE_IMAGE_NAME" value="cache"/>
+    <param name="FS_CACHE_TYPE" value="ext4"/>
+    <param name="FS_CACHE_SIZE_MB" value="1000"/>
+    <param name="FS_CACHE_MOUNT_PATH" value="cache"/>
+
+    <!-- Fourth image -->
+    <param name="FS_DECLARATION_METADATA" value="fs_empty"/>
+    <param name="FS_METADATA_IMAGE_NAME" value="metadata"/>
+    <param name="FS_METADATA_TYPE" value="ext4"/>
+    <param name="FS_METADATA_SIZE_MB" value="1000"/>
+    <param name="FS_METADATA_MOUNT_PATH" value="metadata"/>
+
+    <!-- Fifth image -->
+    <param name="FS_DECLARATION_MISC" value="fs_zeroed"/>
+    <param name="FS_MISC_IMAGE_NAME" value="misc"/>
+    <param name="FS_MISC_TYPE" value="ext4"/>
+    <param name="FS_MISC_SIZE_MB" value="1"/>
+    <param name="FS_MISC_MOUNT_PATH" value="misc"/>
+
+    <!-- Sixth image -->
+    <param name="FS_DECLARATION_VBMETA" value="fs_from_image"/>
+    <param name="FS_VBMETA_IMAGE_NAME" value="vbmeta"/>
+    <param name="FS_VBMETA_TYPE" value="ext4"/>
+    <param name="FS_VBMETA_SIZE_MB" value="10"/>
+    <param name="FS_VBMETA_MOUNT_PATH" value="vbmeta_a"/>
+
+    <!-- Seventh image -->
+    <param name="FS_DECLARATION_VBMETA_SYSTEM" value="fs_from_image"/>
+    <param name="FS_VBMETA_SYSTEM_IMAGE_NAME" value="vbmeta_system"/>
+    <param name="FS_VBMETA_SYSTEM_TYPE" value="ext4"/>
+    <param name="FS_VBMETA_SYSTEM_SIZE_MB" value="10"/>
+    <param name="FS_VBMETA_SYSTEM_MOUNT_PATH" value="vbmeta_system_a"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+</paf_config>

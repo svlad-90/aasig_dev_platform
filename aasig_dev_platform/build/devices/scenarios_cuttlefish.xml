@@ -1,0 +1,15 @@
+<paf_config>
+
+    <!--========================-->
+    <!--BUILD ANDROID PARAMETERS-->
+    <!--========================-->
+
+    <param name="ANDROID_REPO_URL" value="https://android.googlesource.com/platform/manifest"/>
+    <param name="ANDROID_REPO_BRANCH" value="android-13.0.0_r3"/>
+    <param name="ANDROID_LUNCH_CONFIG" value="aosp_cf_x86_64_phone-userdebug"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+</paf_config>

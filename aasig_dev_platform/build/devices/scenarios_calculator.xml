@@ -1,0 +1,16 @@
+<paf_config>
+
+    <!--========================-->
+    <!--BUILD ANDROID PARAMETERS-->
+    <!--========================-->
+
+    <param name="ANDROID_REPO_URL" value="https://android.googlesource.com/platform/manifest"/>
+    <param name="ANDROID_REPO_BRANCH" value="android-12.0.0_r13"/>
+    <param name="ANDROID_LUNCH_CONFIG" value="device_calculator_x86_64-userdebug"/>
+    <param name="ANDROID_LOCAL_MANIFESTS_GIT_URL" value="git@gitbud.epam.com:epmp-aos/android-hal-calculator-local-manifest.git"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+</paf_config>

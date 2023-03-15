@@ -1,0 +1,78 @@
+<paf_config>
+    <!--========================-->
+    <!--QEMU-RELATED PARAMETERS -->
+    <!--========================-->
+
+    <param name="QEMU_ARCH" value="arm64"/>
+
+    <param name="IMAGES_BUILD_BOOT_IMAGE" value="True"/>
+
+    <param name="IMAGES_UBOOT_MKIMAGE_PATH" value="/mnt/linux_deployment/build/ARM64/ub_v2022.07/tools/mkimage"/>
+    <param name="IMAGES_KERNEL_BOOTCONFIG_PATH" value="/mnt/linux_deployment/build/ARM64/lk_v5.19/tools/bootconfig/bootconfig"/>
+
+    <!-- <param name="IMAGES_BOOT_IMAGE_TYPE" value="NOABI_LINUX"/> -->
+    <param name="IMAGES_BOOT_SCR_PATH" value="/home/vladyslav_goncharuk/Projects/epam/tools/aasig_dev_platform/build/configuration/scripts/boot.scr"/>
+    <param name="IMAGES_DTB_PATH" value="/home/vladyslav_goncharuk/Projects/epam/tools/aasig_dev_platform/build/configuration/dtb/aarch64_virt_cortex-a72/dtc_export/fixed.dtb"/>
+
+    <param name="IMAGES_NOABI_LINUX_SIZE_MB" value="256"/>
+    <param name="IMAGES_NOABI_LINUX_RAMDISK_PATH" value="/mnt/linux_deployment/deploy/ARM64/br_2022.05.2/rootfs.cpio"/>
+    <param name="IMAGES_NOABI_LINUX_KERNEL_PATH" value="/mnt/linux_deployment/deploy/ARM64/lk_v5.19/Image"/>
+    <param name="IMAGES_NOABI_LINUX_USE_ABI" value="False"/>
+
+    <param name="IMAGES_ABI_LINUX_SIZE_MB" value="256"/>
+    <param name="IMAGES_ABI_LINUX_RAMDISK_PATH" value="/mnt/linux_deployment/deploy/ARM64/br_2022.05.2/rootfs.cpio"/>
+    <param name="IMAGES_ABI_LINUX_KERNEL_PATH" value="/mnt/linux_deployment/deploy/ARM64/lk_v5.19/Image"/>
+    <param name="IMAGES_ABI_LINUX_USE_ABI" value="True"/>
+
+    <param name="IMAGES_ABI_AOSP_SIZE_MB" value="256"/>
+    <param name="IMAGES_ABI_AOSP_RAMDISK_PATH" value="/mnt/android/build/android-12.1.0_r8/target/product/xenvm_trout_arm64/build_images/ramdisk/ramdisk.img"/>
+    <param name="IMAGES_ABI_AOSP_KERNEL_PATH" value="/mnt/android/build/android-12.1.0_r8/target/product/xenvm_trout_arm64/kernel"/>
+    <param name="IMAGES_ABI_AOSP_USE_ABI" value="True"/>
+
+    <param name="QEMU_EXECUTION_MODE" value="u-boot"/>
+    <param name="QEMU_BIOS_PATH" value="/mnt/linux_deployment/deploy/ARM64/ub_v2022.07/u-boot.bin"/>
+
+    <param name="KERNEL_CMDLINE" value="loglevel=9
+debug
+printk.devkmsg=on
+console=ttyAMA0
+drm.debug=0x0
+loop.max_loop=10"/>
+    <param name="ANDROID_KERNEL_CMDLINE" value="androidboot.qemu=1
+androidboot.fstab_suffix=trout
+androidboot.hardware=xenvm_trout
+androidboot.boot_devices=4010000000.pcie
+androidboot.slot_suffix=_a
+androidboot.hardware.gralloc=minigbm
+androidboot.hardware.hwcomposer=drm_minigbm
+androidboot.hardware.egl=mesa
+androidboot.logcat=*:V
+androidboot.vendor.vehiclehal.server.cid=2
+androidboot.vendor.vehiclehal.server.port=9300
+androidboot.vendor.vehiclehal.server.power_state_file='/data/data/power_state_marker'
+androidboot.vendor.vehiclehal.server.power_state_socket='/data/data/power_state_socket'"/>
+
+    <param name="RUN_QEMU" value="-serial mon:stdio
+-machine virt
+-cpu cortex-a72
+-smp 4
+-m 8192
+-nodefaults
+-no-reboot
+-netdev user,id=inet,hostfwd=tcp::5550-:5555
+-device virtio-net-pci,netdev=inet
+-device virtio-gpu-gl-pci
+-display gtk,gl=on,show-cursor=on
+-d guest_errors
+-device intel-hda
+-device hda-duplex,audiodev=snd0
+-audiodev alsa,id=snd0,out.dev=default
+-device virtio-snd-pci,disable-legacy=on,audiodev=snd0
+-device virtio-mouse-pci
+-device virtio-keyboard-pci"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+</paf_config>

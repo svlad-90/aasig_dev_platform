@@ -1,0 +1,49 @@
+<paf_config>
+    <!--========================-->
+    <!--QEMU-RELATED PARAMETERS -->
+    <!--========================-->
+
+    <param name="QEMU_ARCH" value="x86"/>
+    <param name="QEMU_EXECUTION_MODE" value="initrd_kernel"/>
+
+    <param name="KERNEL_CMDLINE" value="loglevel=9
+debug
+printk.devkmsg=on
+console=ttyS0,38400
+drm.debug=0x0
+loop.max_loop=10"/>
+    <param name="ANDROID_KERNEL_CMDLINE" value="androidboot.qemu=1
+androidboot.fstab_suffix=trout
+androidboot.hardware=xenvm_trout
+androidboot.boot_devices=pci0000:00/0000:00:02.0
+androidboot.slot_suffix=_a
+androidboot.hardware.gralloc=minigbm
+androidboot.hardware.hwcomposer=drm_minigbm
+androidboot.hardware.egl=mesa
+androidboot.logcat=*:V
+androidboot.vendor.vehiclehal.server.cid=2
+androidboot.vendor.vehiclehal.server.port=9300
+androidboot.vendor.vehiclehal.server.power_state_file='/data/data/power_state_marker'
+androidboot.vendor.vehiclehal.server.power_state_socket='/data/data/power_state_socket'"/>
+
+    <param name="RUN_QEMU" value="-serial mon:stdio
+-enable-kvm
+-smp cores=2
+-m 4096
+-nodefaults
+-no-reboot
+-netdev user,id=inet,hostfwd=tcp::5550-:5555
+-device virtio-net-pci,netdev=inet
+-device virtio-gpu-gl-pci
+-display gtk,gl=on,show-cursor=on
+-d guest_errors
+-device intel-hda
+-device hda-duplex,audiodev=snd0
+-audiodev alsa,id=snd0,out.dev=default
+-device virtio-snd-pci,disable-legacy=on,audiodev=snd0"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+</paf_config>

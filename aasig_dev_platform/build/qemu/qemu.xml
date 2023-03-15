@@ -1,0 +1,58 @@
+<paf_config>
+    <!--========================-->
+    <!--QEMU-RELATED PARAMETERS -->
+    <!--========================-->
+
+    <param name="TARGET_DEVICE" value="xenvm_trout"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+    <!--========-->
+    <!-- PHASES -->
+    <!--========-->
+
+    <phase name="qemu_system_prepare">
+        <task name="aasig_dev_platform.qemu.qemu_install_prerequisites"/>
+        <task name="aasig_dev_platform.qemu.qemu_deploy_qemu"/>
+    </phase>
+
+    <phase name="qemu_build_images">
+        <task name="aasig_dev_platform.images.images_recreate_images_dir"/>
+        <task name="aasig_dev_platform.images.images_append_vb_meta_digest">
+            <condition name="QEMU_EXECUTION_MODE" value="u-boot"/>
+        </task>
+        <task name="aasig_dev_platform.images.images_build_ramdisk"/>
+        <task name="aasig_dev_platform.images.images_build_boot_image">
+            <condition name="IMAGES_BUILD_BOOT_IMAGE" value="True"/>
+        </task>
+        <task name="aasig_dev_platform.images.images_build_main_image"/>
+    </phase>
+
+    <phase name="qemu_run_android">
+        <task name="aasig_dev_platform.images.images_append_vb_meta_digest">
+            <condition name="QEMU_EXECUTION_MODE" value="initrd_kernel"/>
+        </task>
+
+        <task name="aasig_dev_platform.qemu.qemu_run_android"/>
+    </phase>
+
+    <!--===========-->
+    <!-- SCENARIOS -->
+    <!--===========-->
+
+    <scenario name="qemu_system_prepare">
+        <phase name="qemu_system_prepare"/>
+    </scenario>
+
+    <scenario name="qemu_build_images_and_run_android">
+        <phase name="qemu_build_images"/>
+        <phase name="qemu_run_android"/>
+    </scenario>
+
+    <scenario name="qemu_run_android">
+        <phase name="qemu_run_android"/>
+    </scenario>
+
+</paf_config>

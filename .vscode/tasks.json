@@ -1,0 +1,1238 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "build_android_full",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android_full.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "build_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}",
+                "${config:local_vendor_source_path}",
+                "${config:local_vendor_destination_path}"
+            ],
+            "label": "build_android_with_local_vendor",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android_with_local_vendor.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}",
+                "${config:local_vendor_source_path}",
+                "${config:local_vendor_destination_path}"
+            ],
+            "label": "build_android_with_local_vendor_copy_newer_files",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android_with_local_vendor_copy_newer_files.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "update_vehicle_hal_diagrams",
+            "type": "shell",
+            "command": "./.vscode/scripts/update_vehicle_hal_diagrams.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "run_android_goldfish",
+            "type": "shell",
+            "command": "./.vscode/scripts/run_android_goldfish.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:cuttlefish_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cuttlefish_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/cuttlefish_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:cuttlefish_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cuttlefish_start_container",
+            "type": "shell",
+            "command": "./.vscode/scripts/cuttlefish_start_container.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:cuttlefish_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cuttlefish_stop_container",
+            "type": "shell",
+            "command": "./.vscode/scripts/cuttlefish_stop_container.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:cuttlefish_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cuttlefish_docker_install",
+            "type": "shell",
+            "command": "./.vscode/scripts/cuttlefish_docker_install.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "build_android_sdk",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android_sdk.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}",
+                "${config:local_vendor_source_path}",
+                "${config:local_vendor_destination_path}"
+            ],
+            "label": "build_android_sdk_with_local_vendor",
+            "type": "shell",
+            "command": "./.vscode/scripts/build_android_sdk_with_local_vendor.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "android_after_repo_sync_hooks",
+            "type": "shell",
+            "command": "./.vscode/scripts/android_after_repo_sync_hooks.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cts_execute_full",
+            "type": "shell",
+            "command": "./.vscode/scripts/cts_execute_full.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "cts_execute",
+            "type": "shell",
+            "command": "./.vscode/scripts/cts_execute.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}",
+                "${config:local_vendor_source_path}",
+                "${config:local_vendor_destination_path}"
+            ],
+            "label": "cts_execute_with_local_vendor",
+            "type": "shell",
+            "command": "./.vscode/scripts/cts_execute_with_local_vendor.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "vts_execute_full",
+            "type": "shell",
+            "command": "./.vscode/scripts/vts_execute_full.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "vts_execute",
+            "type": "shell",
+            "command": "./.vscode/scripts/vts_execute.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}",
+                "${config:local_vendor_source_path}",
+                "${config:local_vendor_destination_path}"
+            ],
+            "label": "vts_execute_with_local_vendor",
+            "type": "shell",
+            "command": "./.vscode/scripts/vts_execute_with_local_vendor.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_x86_build_images_and_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_x86_build_images_and_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_x86_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_x86_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_arm64_build_images_and_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_arm64_build_images_and_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_arm64_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_arm64_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_build_images_and_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_build_images_and_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_run_android",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_run_android.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_build_images_and_run_linux_abi",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_build_images_and_run_linux_abi.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_run_linux_abi",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_run_linux_abi.sh",
+        },        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_build_images_and_run_linux_no_abi",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_build_images_and_run_linux_no_abi.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_uboot_arm64_run_linux_no_abi",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_uboot_arm64_run_linux_no_abi.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:aosp_scenarios_xml_file}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "qemu_system_prepare",
+            "type": "shell",
+            "command": "./.vscode/scripts/qemu_system_prepare.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_1_sync",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_sync.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_2_configure",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_configure.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_configure_edit",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_configure_edit.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_3_build",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_build.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_4_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_clean",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_clean.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_remove",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_remove.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_u-boot_run",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_u-boot_run.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_1_sync",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_sync.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_2_configure",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_configure.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_configure_edit",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_configure_edit.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_3_build",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_build.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_4_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_clean",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_clean.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_remove",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_remove.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_kernel_run",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_kernel_run.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_1_sync",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_sync.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_2_configure",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_configure.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_configure_edit",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_configure_edit.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_3_build",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_build.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_4_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_clean",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_clean.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_remove",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_remove.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_busybox_run",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_busybox_run.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_1_sync",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_sync.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_2_configure",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_configure.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_configure_edit",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_configure_edit.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_3_build",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_build.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_4_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_clean",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_clean.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_remove",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_remove.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_buildroot_run",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_buildroot_run.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "lfs_system_prepare",
+            "type": "shell",
+            "command": "./.vscode/scripts/linux-from-scratch_system_prepare.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_1_docker_install",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_docker_install.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_2_docker_build_image_for_xen_and_qemu",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_docker_build_image_for_xen_and_qemu.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_3_clone_projects",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_clone_projects.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_4_configure_xen",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_configure_xen.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_5_build_xen",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_build_xen.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_6_configure_qemu",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_configure_qemu.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_7_build_qemu",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_build_qemu.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_8_deploy_qemu_on_target",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_deploy_qemu_on_target.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_docker_build_image_for_kernel",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_docker_build_image_for_kernel.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_docker_start_container_kernel",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_docker_start_container_kernel.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_clean",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_clean.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_remove",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_remove.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_reboot_board",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_reboot_board.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_reboot_board_from_emmc",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_reboot_board_from_emmc.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_docker_start_container_xen_and_qemu",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_docker_start_container_xen_and_qemu.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_block_net_pci",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_block_net_pci.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_block_net_mmio",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_block_net_mmio.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_block_net_mmio_and_pci_combined",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_block_net_mmio_and_pci_combined.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_console_pci",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_console_pci.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_deploy_evtest",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_deploy_evtest.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_input",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_input.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_snd",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_snd.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_snd",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_snd.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_gpu_pci",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_gpu_pci.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "xqvd_check_virtio_gpu_mmio",
+            "type": "shell",
+            "command": "./.vscode/scripts/xqvd_check_virtio_gpu_mmio.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_1_docker_install",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_docker_install.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_2_docker_build_image",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_docker_build_image.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_3_clone_build_config",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_clone_build_config.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_4_generate_ninja",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_generate_ninja.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_5_build_project",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_build_project.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_6_create_full_image",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_create_full_image.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_nfs_and_tftp_deploy",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_nfs_and_tftp_deploy.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_nfs_and_tftp_upload_sw_to_the_rpi",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_nfs_and_tftp_upload_sw_to_the_rpi.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_7_deploy_full_image_to_the_target",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_deploy_full_image_on_the_target.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_generate_yocto_filtered_dot_graph",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_generate_yocto_filtered_dot_graph.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_generate_yocto_filtered_dot_graph_incremental",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_generate_yocto_filtered_dot_graph_incremental.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_analyze_yocto_dependency",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_analyze_yocto_dependency.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_analyze_yocto_dependency_incremental",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_analyze_yocto_dependency_incremental.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_find_yocto_package_by_path",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_find_yocto_package_by_path.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_write_yocto_env_to_file",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_write_yocto_env_to_file.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_lookup_yocto_recipe_by_package",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_lookup_yocto_recipe_by_package.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_list_yocto_package_files",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_list_yocto_package_files.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_open_dot_dependency_graph_in_taskexp",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_open_dot_dependency_graph_in_taskexp.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_dev_rebuild_target",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_dev_rebuild_target.sh",
+        },
+        {
+            "args":
+            [
+                "${config:paf_location}",
+                "${config:aasig_dev_platform_location}",
+                "${config:paf_logs_location}"
+            ],
+            "label": "moulin_dev_upload_files",
+            "type": "shell",
+            "command": "./.vscode/scripts/moulin_dev_upload_files.sh",
+        }
+    ],
+}

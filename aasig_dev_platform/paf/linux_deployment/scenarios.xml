@@ -1,0 +1,77 @@
+<paf_config>
+
+    <!-- QEMU-specific variables -->
+    <param name="QEMU_PATH" value="/mnt/android/build/qemu"/>
+    <param name="QEMU_CONFIG" value="-drive if=none,index=0,id=main,file=/mnt/android/build/android-12.1.0_r8/target/product/xenvm_trout_arm64/build_images/main/main.img
+-device virtio-blk-pci,modern-pio-notify=on,drive=main
+-serial mon:stdio
+-machine virt
+-cpu cortex-a72
+-usb
+-smp 4
+-m 8192
+-nodefaults
+-no-reboot
+-netdev user,id=inet,hostfwd=tcp::5550-:5555
+-device virtio-net-pci,netdev=inet
+-device virtio-gpu-gl-pci
+-display gtk,gl=on,show-cursor=on
+-d guest_errors
+-device intel-hda
+-device hda-duplex,audiodev=snd0
+-audiodev alsa,id=snd0,out.dev=default
+-device virtio-snd-pci,disable-legacy=on,audiodev=snd0
+-device virtio-mouse-pci
+-device virtio-keyboard-pci"/>
+
+    <!--Root level directories-->
+    <param name="ROOT" value="/mnt"/>
+    <param name="LINUX_DEPLOYMENT_DIR" value="linux_deployment"/>
+
+    <!--Project sub-directories-->
+    <param name="DOWNLOAD_DIR" value="download"/>
+    <param name="SOURCE_DIR" value="source"/>
+    <param name="BUILD_DIR" value="build"/>
+    <param name="DEPLOY_DIR" value="deploy"/>
+
+    <!--System architecture parameters-->
+    <param name="ARM_COMPILER" value="arm-linux-gnueabi"/>
+    <param name="ARM_COMPILER_PATH" value="/usr/arm-linux-gnueabi"/>
+
+    <param name="ARM64_COMPILER" value="aarch64-linux-gnu"/>
+    <param name="ARM64_COMPILER_PATH" value="/usr/arm-linux-gnueabi"/>
+
+    <param name="AARCH64_COMPILER" value="aarch64-linux-gnu"/>
+    <param name="AARCH64_COMPILER_PATH" value="/usr/arm-linux-gnueabi"/>
+
+    <param name="ARCH_TYPE" value="ARM64"/>
+
+    <!--Build system parameters-->
+    <param name="BUILD_SYSTEM_CORES_NUMBER" value="16"/>
+
+    <!--U-boot parameters-->
+    <param name="UBOOT_GIT_REFERENCE" value="git@github.com:u-boot/u-boot.git"/>
+    <param name="UBOOT_VERSION" value="v2022.07"/>
+
+    <!--Linux kernel parameters-->
+    <param name="LINUX_KERNEL_GIT_REFERENCE" value="git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git"/>
+    <param name="LINUX_KERNEL_VERSION" value="v5.19"/>
+
+    <!--Busybox parameters-->
+    <param name="BUSYBOX_VERSION" value="1.35.0"/>
+    <param name="BUSYBOX_CONFIG_FLAGS" value="CONFIG_STATIC=y"/>
+
+   <!--Buildroot parameters-->
+    <param name="BUILDROOT_GIT_REFERENCE" value="https://github.com/buildroot/buildroot.git"/>
+    <param name="BUILDROOT_VERSION" value="2022.05.2"/>
+
+    <!--========-->
+    <!-- PHASES -->
+    <!--========-->
+
+    <phase name="system_prepare">
+        <task name="linux_deployment.general.prepare_directories"/>
+        <task name="linux_deployment.general.install_dependencies"/>
+    </phase>
+
+</paf_config>

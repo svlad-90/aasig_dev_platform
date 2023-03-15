@@ -1,0 +1,305 @@
+<paf_config>
+
+    <!--======================-->
+    <!--ROOT LEVEL DIRECTORIES-->
+    <!--======================-->
+
+    <param name="ROOT" value="/mnt"/>
+    <param name="XQVD_DEPLOYMENT_DIR" value="xen_qemu_virtio_development"/>
+
+    <!--=======================-->
+    <!--PROJECT SUB-DIRECTORIES-->
+    <!--=======================-->
+
+    <param name="DOWNLOAD_DIR" value="download"/>
+    <param name="SOURCE_DIR" value="source"/>
+    <param name="BUILD_DIR" value="build"/>
+    <param name="DEPLOY_DIR" value="deploy"/>
+
+    <param name="BRANCH_DIR" value="develop"/>
+
+    <!--=======================-->
+    <!--MOUNTED REPO PARAMETERS-->
+    <!--=======================-->
+
+    <param name="XEN_GIT_URL" value="git@github.com:otyshchenko1/xen.git"/>
+    <param name="XEN_GIT_BRANCH" value="virtio_devel_next0"/>
+
+    <param name="QEMU_GIT_URL" value="git@github.com:otyshchenko1/qemu.git"/>
+    <param name="QEMU_GIT_BRANCH" value="virtio_devel_next1"/>
+
+    <!--=========================-->
+    <!--INSTALL DOCKER PARAMETERS-->
+    <!--=========================-->
+
+    <param name="DOCKER_GPG_KEY_URL" value="https://download.docker.com/linux/ubuntu/gpg"/>
+
+    <!--==================================-->
+    <!--BUILD XQVD DOCKER IMAGE PARAMETERS-->
+    <!--==================================-->
+
+    <param name="XQVD_DOCKER_IMAGE_NAME" value="xen_qemu_virtio_development"/>
+    <param name="XQVD_DOCKER_CONTAINER_NAME" value="xen_qemu_virtio_development"/>
+
+    <!--================-->
+    <!--BUILD PARAMETERS-->
+    <!--================-->
+
+    <param name="BUILD_SYSTEM_CORES_NUMBER" value="6"/>
+
+    <!--=================-->
+    <!--TARGET PARAMETERS-->
+    <!--=================-->
+
+    <!--RPI params-->
+    <param name="RPI_IP_ADDRESS" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_USER_NAME" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_SSH_KEY_NAME" value="testrpi3_rsa"/>
+    <param name="RPI_MINICOM_USB" value="/dev/ttyUSB0"/>
+
+    <param name="RPI_NFS_YOCTO_ROOT" value="/srv/nfs/yocto"/>
+    <param name="RPI_TFTP_DOM0_ROOT" value="/srv/tftp/dom0"/>
+    <param name="RPI_TFTP_XEN_ROOT" value="/srv/tftp/xen"/>
+    <param name="RPI_NFS_DOMD_ROOT" value="/srv/nfs/domd"/>
+
+    <param name="RPI_DOM0_NAME" value="Dom0"/>
+    <param name="RPI_DOM0_USERNAME" value="ENTER_YOUR_VALUE_HERE"/>
+
+    <param name="RPI_DOMD_NAME" value="DomD"/>
+    <param name="RPI_DOMD_CONSOLE_NAME" value="h3ulcb-domd"/>
+    <param name="RPI_DOMD_USERNAME" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_DOMD_PASSWORD" value="ENTER_YOUR_VALUE_HERE"/>
+
+    <param name="RPI_DOMU_NAME" value="DomU"/>
+    <param name="RPI_DOMU_CONSOLE_NAME" value="h3ulcb-4x2g-kf-xt-domu"/>
+    <param name="RPI_DOMU_USERNAME" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_DOMU_PASSWORD" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_DOMU_SSH_PORT" value="2025"/>
+
+    <param name="RPI_YOCTO_CONSOLE_NAME" value="h3ulcb"/>
+    <param name="RPI_YOCTO_USERNAME" value="ENTER_YOUR_VALUE_HERE"/>
+    <param name="RPI_YOCTO_PASSWORD" value="ENTER_YOUR_VALUE_HERE"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+    <!--========-->
+    <!-- PHASES -->
+    <!--========-->
+
+    <phase name="xqvd_docker_install">
+        <task name="aasig_dev_platform.docker.docker_install"/>
+        <task name="aasig_dev_platform.docker.docker_install_qemu_static"/>
+    </phase>
+
+    <phase name="xqvd_docker_build_image_for_xen_and_qemu">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_container"/>
+        <task name="aasig_dev_platform.docker.docker_build_image"/>
+        <task name="aasig_dev_platform.docker.docker_create_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+    </phase>
+
+    <phase name="xqvd_docker_start_container_xen_and_qemu">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+    </phase>
+
+    <phase name="xqvd_clone_projects">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_clone_projects"/>
+    </phase>
+
+   <phase name="xqvd_configure_xen">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_share_git_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_configure_xen"/>
+    </phase>
+
+    <phase name="xqvd_build_xen">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_share_git_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_build_xen"/>
+    </phase>
+
+    <phase name="xqvd_configure_qemu">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_share_git_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_configure_qemu"/>
+    </phase>
+
+    <phase name="xqvd_build_qemu">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_share_git_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_build_qemu"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_built_files_on_local_machine"/>
+    </phase>
+
+    <phase name="xqvd_docker_build_image_for_kernel">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_kernel"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_container"/>
+        <task name="aasig_dev_platform.docker.docker_build_image"/>
+        <task name="aasig_dev_platform.docker.docker_create_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+    </phase>
+
+    <phase name="xqvd_docker_start_container_kernel">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_create_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_kernel"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+    </phase>
+
+    <phase name="xqvd_clean">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_clean"/>
+    </phase>
+
+    <phase name="xqvd_remove">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_remove_project_folders"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_image"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_kernel"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_container"/>
+        <task name="aasig_dev_platform.docker.docker_remove_image"/>
+    </phase>
+
+    <phase name="xqvd_reset_ssh_keys_installation">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reset_ssh_keys_installation"/>
+    </phase>
+
+    <phase name="xqvd_reboot_board">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board"/>
+    </phase>
+
+    <phase name="xqvd_reboot_board_from_emmc">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board_from_emmc"/>
+    </phase>
+
+    <phase name="xqvd_reboot_board_from_yocto">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board_from_yocto"/>
+    </phase>
+
+    <phase name="xqvd_deploy_qemu_on_target">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_qemu_on_rpi"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_domd_ldconfig"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_block_net_pci">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_block_net_pci"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_block_net_mmio">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_block_net_mmio"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_block_net_mmio_and_pci_combined">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_block_net_mmio_and_pci_combined"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_console_pci">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_console_pci"/>
+    </phase>
+
+    <phase name="xqvd_deploy_evtest">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_inject_docker_parameters_for_xen_and_qemu"/>
+        <task name="aasig_dev_platform.docker.docker_stop_container"/>
+        <task name="aasig_dev_platform.docker.docker_start_container"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_evtest"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_input">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_input"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_snd">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_snd"/>
+    </phase>
+
+    <phase name="xqvd_check_snd">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_snd"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_gpu_pci">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_gpu_pci"/>
+    </phase>
+
+    <phase name="xqvd_check_virtio_gpu_mmio">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_domd_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_domd_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_check_virtio_gpu_mmio"/>
+    </phase>
+
+    <phase name="xqvd_copy_file_to_the_rpi">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_deploy_rpi_ssh_key"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_copy_file_to_the_rpi"/>
+    </phase>
+
+    <phase name="xqvd_flash_full_image_to_emmc">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_fetch_yocto_ip_address"/>
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_flash_full_image_to_emmc"/>
+    </phase>
+
+    <phase name="xqvd_reboot_board_from_tftp">
+        <task name="aasig_dev_platform.xen_qemu_virtio_development.xqvd_reboot_board_from_tftp"/>
+    </phase>
+</paf_config>

@@ -1,0 +1,9 @@
+{
+    "paf_location": "aasig_dev_platform/paf",
+    "aasig_dev_platform_location": "aasig_dev_platform/build",
+    "aosp_scenarios_xml_file": "devices/scenarios_trout.xml",
+    "cuttlefish_xml_file": "cuttlefish/cuttlefish.xml",
+    "paf_logs_location": "~/paf_logs",
+    "local_vendor_source_path": "/home/vladyslav_goncharuk/Projects/epam/aosp-vhal",
+    "local_vendor_destination_path": "device/epam/aosp-vhal"
+}

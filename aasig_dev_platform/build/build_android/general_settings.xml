@@ -1,0 +1,88 @@
+ <paf_config>
+
+    <!--======================-->
+    <!--ROOT LEVEL DIRECTORIES-->
+    <!--======================-->
+
+    <param name="ROOT" value="/mnt"/>
+    <param name="ANDROID_DEPLOYMENT_DIR" value="android"/>
+
+    <!--=======================-->
+    <!--PROJECT SUB-DIRECTORIES-->
+    <!--=======================-->
+
+    <param name="DOWNLOAD_DIR" value="download"/>
+    <param name="SOURCE_DIR" value="source"/>
+    <param name="BUILD_DIR" value="build"/>
+    <param name="DEPLOY_DIR" value="deploy"/>
+
+    <!--========================-->
+    <!--BUILD ANDROID PARAMETERS-->
+    <!--========================-->
+
+    <param name="REPO_TOOL_SUB_DIR" value="repo"/>
+
+    <!--=======================-->
+    <!--BUILD SYSTEM PARAMETERS-->
+    <!--=======================-->
+
+    <param name="BUILD_SYSTEM_CORES_NUMBER" value="16"/>
+    <param name="REPO_INIT_DEPTH" value="1"/>
+    <param name="REPO_SYNC_THREADS_NUMBER" value="16"/>
+    <!-- <param name="REPO_TRACE" value="True"/> -->
+    <param name="REPO_SYNC_CURRENT_BRANCH" value="True"/>
+    <!-- <param name="REPO_SYNC_FORCE" value="True"/> -->
+
+    <!--===================-->
+    <!--EMULATOR PARAMETERS-->
+    <!--===================-->
+
+    <param name="WIPE_DATA" value="True"/>
+
+    <!--===========================-->
+    <!-- END OF PARAMETERS SECTION -->
+    <!--===========================-->
+
+    <!--========-->
+    <!-- PHASES -->
+    <!--========-->
+
+    <phase name="system_prepare">
+        <task name="aasig_dev_platform.general.prepare_directories"/>
+        <task name="aasig_dev_platform.general.install_dependencies">
+        </task>
+    </phase>
+
+    <phase name="build_android">
+        <task name="aasig_dev_platform.build_android.android_init"/>
+        <task name="aasig_dev_platform.build_android.android_after_repo_sync_hooks"/>
+        <task name="aasig_dev_platform.build_android.android_build"/>
+    </phase>
+
+    <phase name="run_android_goldfish">
+        <task name="aasig_dev_platform.build_android.android_run_emulator"/>
+    </phase>
+
+    <phase name="update_diagrams">
+        <task name="aasig_dev_platform.misc.update_diagrams"/>
+    </phase>
+
+    <!--===========-->
+    <!-- SCENARIOS -->
+    <!--===========-->
+
+    <scenario name="build_android">
+        <phase name="system_prepare"/>
+        <phase name="build_android"/>
+    </scenario>
+
+    <scenario name="run_android_goldfish">
+        <phase name="system_prepare"/>
+        <phase name="run_android_goldfish"/>
+    </scenario>
+
+    <scenario name="update_diagrams">
+        <phase name="update_diagrams"/>
+    </scenario>>
+
+</paf_config>

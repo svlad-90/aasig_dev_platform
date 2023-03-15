@@ -1,0 +1,125 @@
+echo "@u-boot log: --------------- Boot script begin ---------------"
+
+setenv initrd_high 0x66000000
+
+setenv use_abi                      0
+
+setenv kernel_location              /boot/kernel-5.19.uimg
+setenv ramdisk_location             /boot/rootfs-2022.05.2.cpio.uimg
+setenv dtb_location                 /boot/dtb.dtb
+setenv abi_location                 /boot/boot_linux.img
+
+setenv boot_device                  ${devtype} ${devnum}:${distro_bootpart}
+
+setenv kernel_address               ${kernel_addr_r}
+setenv ramdisk_address              ${ramdisk_addr_r}
+# setenv fdt_address                  ${fdt_addr_r}
+setenv fdt_address                  ${fdt_addr}
+setenv abi_address                  ${kernel_addr_r}
+
+setenv bootargs_predefined          "earlyprintk"
+setenv bootargs_custom              ""
+setenv bootargs                     ${bootargs} ${bootargs_predefined} ${bootargs_custom}
+
+
+
+setenv command_print_data '
+   echo "@u-boot log: ---------------- Begin Data ----------------";
+   printenv;
+   echo "@u-boot log: kernel_address    = ${kernel_address}";
+   echo "@u-boot log: fdt_address       = ${fdt_address}";
+   echo "@u-boot log: ramdisk_address   = ${ramdisk_address}";
+   echo "@u-boot log: abi_address       = ${abi_address}";
+   echo "@u-boot log: scriptaddr        = ${scriptaddr}";
+   echo "@u-boot log: bootargs          = ${bootargs}";
+   echo "@u-boot log: loadaddr          = ${loadaddr}";
+   echo "@u-boot log: fdtaddr           = ${fdtaddr}";
+   echo "@u-boot log: ----------------- End Data -----------------";
+'
+
+setenv command_load_kernel '
+   echo "@u-boot log: loading kernel ( ${kernel_location} to ${kernel_address} )...";
+   if load ${boot_device} ${kernel_address} ${kernel_location} ; then
+      echo "@u-boot log: ... kernel loaded";
+   else;
+      echo "@u-boot log: ... kernel load error";
+   fi
+'
+
+setenv command_load_rootfs '
+   echo "@u-boot log: loading rootfs ( ${ramdisk_location} to ${ramdisk_address} )...";
+   if load ${boot_device} ${ramdisk_address} ${ramdisk_location} ; then
+      echo "@u-boot log: ... rootfs loaded";
+   else;
+      echo "@u-boot log: ... rootfs load error";
+   fi
+'
+
+setenv command_load_dtb '
+   echo "@u-boot log: loading device tree ( ${dtb_location} to ${fdt_address} )...";
+   if load ${boot_device} ${fdt_address} ${dtb_location} ; then
+      echo "@u-boot log: ... device tree loaded";
+   else;
+      echo "@u-boot log: ... device tree load error";
+   fi
+'
+
+setenv command_load_abi '
+   echo "@u-boot log: loading Android Boot Image ( ${abi_location} to ${abi_address} )...";
+   if load ${boot_device} ${abi_address} ${abi_location}; then
+      echo "@u-boot log: ... Android Boot Image loaded";
+   else;
+      echo "@u-boot log: ... Android Boot Image load error";
+   fi
+'
+
+setenv command_boot_kernel '
+   echo "@u-boot log: booting kernel...";
+   if bootm ${kernel_address} ${ramdisk_address} ${fdt_address}; then
+      echo "@u-boot log: ... kernel booted";
+   else;
+      echo "@u-boot log: ... kernel boot error";
+   fi
+'
+
+setenv command_boot_abi '
+   echo "@u-boot log: booting Android Boot Image...";
+   if bootm ${abi_address} ${abi_address} ${fdt_address}; then
+      echo "@u-boot log: ... Android Boot Image booted";
+   else;
+      echo "@u-boot log: ... Android Boot Image boot error";
+   fi
+'
+
+
+
+
+
+run command_print_data
+
+if itest 1 == ${use_abi}; then
+   echo "@u-boot log: Using ABI mode"
+
+   run command_load_abi
+   run command_load_dtb
+
+   run command_boot_abi
+else
+   echo "@u-boot log: Using kernel mode"
+
+   run command_load_kernel
+   run command_load_rootfs
+   run command_load_dtb
+
+   run command_boot_kernel
+fi
+
+
+
+
+
+
+
+
+
+echo "@u-boot log: ---------------- Boot script end -----------------"

@@ -1,0 +1,24 @@
+<paf_config>
+    <param name="ANDROID_REPO_BRANCH" value="android-cts-12.1_r1"/>
+    <param name="VTS_MODULE" value="epam_VtsHalAutomotiveVehicleV2_0TargetTest"/>
+
+    <phase name="execute_vts">
+        <task name="aasig_dev_platform.vts.vts_deploy"/>
+        <task name="aasig_dev_platform.build_android.android_run_emulator_non_blocking"/>
+        <task name="aasig_dev_platform.vts.vts_execute"/>
+    </phase>
+
+    <phase name="execute_vts_with_local_vendor">
+        <task name="aasig_dev_platform.build_android.android_build"/>
+        <task name="aasig_dev_platform.vts.vts_deploy"/>
+        <task name="aasig_dev_platform.build_android.android_run_emulator_non_blocking"/>
+        <task name="aasig_dev_platform.vts.vts_execute"/>
+    </phase>
+
+    <scenario name="execute_vts">
+        <phase name="system_prepare"/>
+        <phase name="build_android"/>
+        <phase name="execute_vts"/>
+    </scenario>>
+
+</paf_config>
